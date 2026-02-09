@@ -76,6 +76,7 @@ const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
+const ensureAdmin = require('./utils/ensureAdmin');
 
 // Load environment variables
 dotenv.config();
