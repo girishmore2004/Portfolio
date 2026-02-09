@@ -34,7 +34,7 @@ const Footer = () => {
       icon: Linkedin, 
       href: 'www.linkedin.com/in/girish-more-085b9924a', 
       label: 'LinkedIn',
-      color: 'hover:text-blue-600'
+      color: 'hover:text-blue-600 dark:hover:text-white'
     }
   ];
 
