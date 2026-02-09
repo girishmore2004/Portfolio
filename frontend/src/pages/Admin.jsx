@@ -224,7 +224,7 @@ const Admin = () => {
             </nav>
 
             {/* User Info */}
-            <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+            {/* <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center">
                   <User className="w-5 h-5 text-primary-600 dark:text-primary-400" />
@@ -238,7 +238,27 @@ const Admin = () => {
                   </p>
                 </div>
               </div>
+            </div> */}
+            {/* User Info */}
+            <div className="absolute bottom-0 left-0 right-0 pb-4">
+              <div className="mx-4 inline-flex items-center gap-3 px-3 py-2 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
+    
+                <div className="w-9 h-9 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center">
+                  <User className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+                </div>
+
+                <div className="leading-tight max-w-[140px]">
+                  <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                    {user?.name}
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                    {user?.email}
+                  </p>
+                </div>
+
+              </div>
             </div>
+
           </motion.aside>
         )}
       </AnimatePresence>
