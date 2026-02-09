@@ -1,0 +1,219 @@
+{
+  "description": "MongoDB Schema Reference for Portfolio CMS",
+  "database": "portfolio-cms",
+  "collections": {
+    "users": {
+      "description": "Admin and editor users",
+      "fields": {
+        "_id": "ObjectId",
+        "email": "String (unique, required)",
+        "password": "String (hashed, required, min: 8)",
+        "name": "String (required)",
+        "role": "String (enum: ['admin', 'editor'], default: 'admin')",
+        "lastLogin": "Date",
+        "createdAt": "Date",
+        "updatedAt": "Date"
+      },
+      "indexes": [
+        { "field": "email", "unique": true }
+      ],
+      "example": {
+        "email": "admin@portfolio.com",
+        "name": "Admin User",
+        "role": "admin",
+        "lastLogin": "2024-01-15T10:30:00.000Z"
+      }
+    },
+    "projects": {
+      "description": "Portfolio projects",
+      "fields": {
+        "_id": "ObjectId",
+        "title": "String (required)",
+        "slug": "String (unique, auto-generated)",
+        "description": "String (required, max: 200)",
+        "longDescription": "String (required)",
+        "images": "Array of { url: String, publicId: String, alt: String }",
+        "thumbnail": "Object { url: String, publicId: String }",
+        "technologies": "Array of String",
+        "category": "String (enum: ['web', 'mobile', 'desktop', 'other'])",
+        "liveUrl": "String",
+        "githubUrl": "String",
+        "featured": "Boolean (default: false)",
+        "status": "String (enum: ['draft', 'published'], default: 'published')",
+        "order": "Number (default: 0)",
+        "views": "Number (default: 0)",
+        "likes": "Number (default: 0)",
+        "createdAt": "Date",
+        "updatedAt": "Date"
+      },
+      "indexes": [
+        { "field": "slug", "unique": true },
+        { "field": "title, description, technologies", "type": "text" },
+        { "field": "order, createdAt", "direction": "1, -1" }
+      ],
+      "example": {
+        "title": "E-Commerce Platform",
+        "slug": "e-commerce-platform",
+        "description": "Full-stack e-commerce solution",
+        "technologies": ["React", "Node.js", "MongoDB"],
+        "category": "web",
+        "featured": true,
+        "status": "published",
+        "order": 0
+      }
+    },
+    "skills": {
+      "description": "Technical skills",
+      "fields": {
+        "_id": "ObjectId",
+        "name": "String (required, unique)",
+        "category": "String (enum: ['frontend', 'backend', 'database', 'devops', 'tools', 'other'])",
+        "proficiency": "Number (min: 0, max: 100, default: 50)",
+        "icon": "String",
+        "color": "String (default: '#6366f1')",
+        "yearsOfExperience": "Number (min: 0, default: 0)",
+        "order": "Number (default: 0)",
+        "visible": "Boolean (default: true)",
+        "tags": "Array of String",
+        "createdAt": "Date",
+        "updatedAt": "Date"
+      },
+      "indexes": [
+        { "field": "name", "unique": true },
+        { "field": "category, order", "direction": "1, 1" },
+        { "field": "visible, proficiency", "direction": "1, -1" }
+      ],
+      "example": {
+        "name": "React",
+        "category": "frontend",
+        "proficiency": 90,
+        "icon": "react",
+        "yearsOfExperience": 3,
+        "visible": true
+      }
+    },
+    "certifications": {
+      "description": "Professional certifications",
+      "fields": {
+        "_id": "ObjectId",
+        "title": "String (required)",
+        "issuer": "String (required)",
+        "issueDate": "Date (required)",
+        "expiryDate": "Date",
+        "credentialId": "String",
+        "verificationUrl": "String",
+        "image": "Object { url: String, publicId: String }",
+        "pdfUrl": "Object { url: String, publicId: String }",
+        "category": "String (enum: ['technical', 'professional', 'academic', 'other'])",
+        "skills": "Array of String",
+        "status": "String (enum: ['draft', 'published'], default: 'published')",
+        "order": "Number (default: 0)",
+        "createdAt": "Date",
+        "updatedAt": "Date"
+      },
+      "virtuals": {
+        "isExpired": "Boolean (computed from expiryDate)"
+      },
+      "indexes": [
+        { "field": "issueDate, order", "direction": "-1, 1" }
+      ],
+      "example": {
+        "title": "AWS Certified Developer",
+        "issuer": "Amazon Web Services",
+        "issueDate": "2023-06-15",
+        "category": "technical",
+        "status": "published"
+      }
+    },
+    "content": {
+      "description": "Dynamic content for sections (hero, about, contact, etc.)",
+      "fields": {
+        "_id": "ObjectId",
+        "section": "String (enum: ['hero', 'about', 'contact', 'resume', 'footer', 'seo'], unique)",
+        "data": "Mixed (flexible JSON structure)",
+        "version": "Number (default: 1)",
+        "draft": "Mixed (draft version of data)",
+        "history": "Array of { version: Number, data: Mixed, updatedBy: ObjectId, updatedAt: Date }",
+        "createdAt": "Date",
+        "updatedAt": "Date"
+      },
+      "indexes": [
+        { "field": "section", "unique": true }
+      ],
+      "example_hero": {
+        "section": "hero",
+        "data": {
+          "name": "Your Name",
+          "tagline": "Full Stack Developer",
+          "roles": ["Developer", "Designer", "Problem Solver"],
+          "backgroundStyle": "particles",
+          "cta": {
+            "primary": { "text": "View Projects", "link": "#projects" },
+            "secondary": { "text": "Download Resume", "link": "#resume" }
+          }
+        }
+      },
+      "example_about": {
+        "section": "about",
+        "data": {
+          "title": "About Me",
+          "whoIAm": "Your story...",
+          "whatIDo": "What you do...",
+          "whyIBuild": "Your motivation...",
+          "image": { "url": "", "alt": "Profile picture" },
+          "achievements": [
+            { "value": "50+", "label": "Projects" }
+          ]
+        }
+      }
+    },
+    "messages": {
+      "description": "Contact form submissions",
+      "fields": {
+        "_id": "ObjectId",
+        "name": "String (required)",
+        "email": "String (required, valid email)",
+        "subject": "String (default: 'Portfolio Contact')",
+        "message": "String (required, min: 10)",
+        "read": "Boolean (default: false)",
+        "starred": "Boolean (default: false)",
+        "replied": "Boolean (default: false)",
+        "ipAddress": "String",
+        "userAgent": "String",
+        "createdAt": "Date",
+        "updatedAt": "Date"
+      },
+      "indexes": [
+        { "field": "read, createdAt", "direction": "1, -1" },
+        { "field": "starred", "direction": "1" }
+      ],
+      "example": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "subject": "Project Inquiry",
+        "message": "I'd like to discuss a project...",
+        "read": false,
+        "starred": false
+      }
+    }
+  },
+  "relationships": {
+    "content.history.updatedBy": "References users._id",
+    "notes": "All collections use MongoDB ObjectId for _id field"
+  },
+  "seeding": {
+    "command": "npm run seed",
+    "location": "database/seed.js",
+    "creates": [
+      "1 Admin user",
+      "3 Sample projects",
+      "17 Sample skills",
+      "2 Sample certifications",
+      "5 Content sections (hero, about, contact, resume, seo)"
+    ]
+  },
+  "backup_restore": {
+    "export": "npm run export",
+    "import": "npm run import backup-file.json"
+  }
+}
