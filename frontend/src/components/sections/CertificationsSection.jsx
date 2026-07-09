@@ -35,7 +35,6 @@ const CertificationsSection = () => {
             Certifications &amp; Achievements
           </h2>
 
-          {/* Scannable list instead of a carousel of cards — reads more confident for a short list */}
           <div className="divide-y divide-hairline dark:divide-hairline-dark border-t border-b border-hairline dark:border-hairline-dark">
             {certifications.map((cert, index) => (
               <motion.div
