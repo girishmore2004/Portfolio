@@ -491,32 +491,34 @@ const ProjectsSection = () => {
                   </div>
 
                   {/* Project Links */}
-                  <div className="flex gap-3 sm:gap-4">
-                    {project.liveUrl && (
-                      
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 transition-colors"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        <span className="text-sm font-medium">Live</span>
-                      </a>
-                    )}
-                    {project.githubUrl && (
-                      
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Github className="w-4 h-4" />
-                        <span className="text-sm font-medium">Code</span>
-                      </a>
-                    )}
-                  </div>
+                  {/* Project Links */}
+<div className="flex gap-3 sm:gap-4">
+  {project.liveUrl && (
+    <a
+      href={project.liveUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center gap-1 text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 transition-colors"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <ExternalLink className="w-4 h-4" />
+      <span className="text-sm font-medium">Live</span>
+    </a>
+  )}
+
+  {project.githubUrl && (
+    <a
+      href={project.githubUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center gap-1 text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <Github className="w-4 h-4" />
+      <span className="text-sm font-medium">Code</span>
+    </a>
+  )}
+</div>
                 </motion.div>
               ))}
             </div>
