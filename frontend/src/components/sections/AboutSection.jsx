@@ -325,21 +325,16 @@ const AboutSection = () => {
 
   useEffect(() => {
     loadContent();
-    const interval = setInterval(loadContent, 10000);
-    return () => clearInterval(interval);
   }, []);
 
   const loadContent = async () => {
     try {
       const response = await contentAPI.get('about');
-      if (response && response.success) {
-        setContent(response.data || getDefaultContent());
-      } else {
-        setContent(getDefaultContent());
+      if (response && response.success && response.data) {
+        setContent(response.data);
       }
     } catch (error) {
       console.error('Failed to load about content:', error);
-      setContent(getDefaultContent());
     }
   };
 
