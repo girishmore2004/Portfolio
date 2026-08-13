@@ -415,9 +415,12 @@ const ProjectsSection = () => {
           viewport={{ once: true }}
           className="max-w-7xl mx-auto"
         >
-          <p className="text-center font-mono text-xs sm:text-sm tracking-wider text-primary-600 dark:text-primary-400 mb-3">
-            // 02 &mdash; Projects
-          </p>
+          <div className="inline-flex items-center gap-2 px-3 py-2 sm:px-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full border border-hairline dark:border-hairline-dark">
+              <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-primary-600" />
+              <span className="font-mono text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+                Welcome
+              </span>
+          </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-semibold text-center mb-10 sm:mb-12 text-ink dark:text-white">
             Featured Projects
           </h2>
