@@ -797,12 +797,6 @@ const ResumeSection = () => {
 
   useEffect(() => {
     loadContent();
-
-    const interval = setInterval(() => {
-      loadContent(true); // silent refresh
-    }, 10000);
-
-    return () => clearInterval(interval);
   }, []);
 
   const getDefaultContent = () => ({
