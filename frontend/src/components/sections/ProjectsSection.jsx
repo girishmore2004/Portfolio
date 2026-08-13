@@ -330,7 +330,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ExternalLink, Github, Sparkles,ChevronLeft, ChevronRight } from 'lucide-react';
 import { projectsAPI } from '../../services/api';
 
 const ProjectsSection = () => {
