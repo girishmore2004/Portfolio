@@ -418,7 +418,7 @@ const ProjectsSection = () => {
           <div className="inline-flex items-center gap-2 px-3 py-2 sm:px-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full border border-hairline dark:border-hairline-dark">
               <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-primary-600" />
               <span className="font-mono text-xs sm:text-sm text-gray-700 dark:text-gray-300">
-                Welcome
+                Projects
               </span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-semibold text-center mb-10 sm:mb-12 text-ink dark:text-white">
