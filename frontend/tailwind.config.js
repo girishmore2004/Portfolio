@@ -6,38 +6,54 @@ export default {
   ],
   darkMode: 'class',
   theme: {
+    screens: {
+      xs: '480px',
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+    },
     extend: {
       colors: {
+        // Warm terracotta scale (replaces the old indigo "primary")
         primary: {
-          50: '#f0f4ff',
-          100: '#e0e9ff',
-          200: '#c7d6fe',
-          300: '#a4b8fc',
-          400: '#8191f8',
-          500: '#6366f1',
-          600: '#4f46e5',
-          700: '#4338ca',
-          800: '#3730a3',
-          900: '#312e81',
-          950: '#1e1b4b',
+          50: '#fcf5f1',
+          100: '#f8e8e0',
+          200: '#f1d0c1',
+          300: '#e6ae96',
+          400: '#d98b6a',
+          500: '#cf7753',
+          600: '#c96c4a',
+          700: '#a9553a',
+          800: '#8a4733',
+          900: '#723c2e',
+          950: '#3d1d16',
         },
+        // Golden highlight
         accent: {
-          50: '#fffbeb',
-          100: '#fef3c7',
-          200: '#fde68a',
-          300: '#fcd34d',
-          400: '#fbbf24',
-          500: '#f59e0b',
-          600: '#d97706',
-          700: '#b45309',
-          800: '#92400e',
-          900: '#78350f',
+          50: '#fdf8ec',
+          100: '#faeecb',
+          200: '#f5dc97',
+          300: '#ecc563',
+          400: '#e2b04d',
+          500: '#d9a441',
+          600: '#b9832f',
+          700: '#946427',
+          800: '#7a5126',
+          900: '#654424',
+        },
+        // Sage / olive support colour
+        olive: {
+          400: '#9ca88a',
+          500: '#7c8a58',
+          600: '#667247',
         },
       },
       fontFamily: {
-        display: ['Syne', 'system-ui', 'sans-serif'],
+        display: ['Inter', 'system-ui', 'sans-serif'],
         body: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
+        mono: ['JetBrains Mono', 'Consolas', 'Monaco', 'monospace'],
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
@@ -45,6 +61,7 @@ export default {
         'slide-down': 'slideDown 0.5s ease-out',
         'scale-in': 'scaleIn 0.3s ease-out',
         'float': 'float 3s ease-in-out infinite',
+        'blink': 'blink 1s steps(1) infinite',
       },
       keyframes: {
         fadeIn: {
@@ -66,6 +83,10 @@ export default {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' },
+        },
+        blink: {
+          '0%, 49%': { opacity: '1' },
+          '50%, 100%': { opacity: '0' },
         },
       },
     },
