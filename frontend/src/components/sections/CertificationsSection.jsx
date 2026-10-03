@@ -22,88 +22,63 @@ const CertificationsSection = () => {
     }
   };
 
+  const formatDate = (date) =>
+    new Date(date).toLocaleDateString('en-US', {
+      month: 'short',
+      year: 'numeric',
+    });
+
   return (
-    <section
-      id="certifications"
-      className="py-16 sm:py-20 md:py-24 bg-white dark:bg-gray-800 px-4 sm:px-6 lg:px-8"
-    >
-      <div className="container mx-auto">
+    <section id="certifications">
+      <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-3xl mx-auto"
+          viewport={{ once: true, margin: '-60px' }}
         >
-          <p className="text-center font-mono text-xs sm:text-sm tracking-wider text-primary-600 dark:text-primary-400 mb-3">
-            // 04 &mdash; Certifications
+          <span className="section-eyebrow">// 04 — Certifications</span>
+          <h2 className="section-title">Certifications &amp; Achievements</h2>
+          <p className="section-subtitle">
+            Credentials and milestones that back up the work
           </p>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-semibold text-center mb-10 sm:mb-12 text-ink dark:text-white">
-            Certifications &amp; Achievements
-          </h2>
-
           {certifications.length > 0 ? (
-            <div className="divide-y divide-hairline dark:divide-hairline-dark border-t border-b border-hairline dark:border-hairline-dark">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               {certifications.map((cert, index) => (
                 <motion.div
                   key={cert._id || index}
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  className="flex items-start gap-4 py-5 sm:py-6"
+                  transition={{ delay: (index % 2) * 0.08 }}
+                  className="paper-card !p-5 sm:!p-6 flex items-start gap-4"
                 >
-                  {/* Icon */}
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-accent-100 dark:bg-accent-900 flex items-center justify-center flex-shrink-0">
+                  <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-accent-500/15 flex items-center justify-center flex-shrink-0">
                     <Award className="w-5 h-5 sm:w-6 sm:h-6 text-accent-600 dark:text-accent-400" />
                   </div>
 
-                  {/* Content */}
-                  <div className="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 sm:gap-4">
-                    {/* Left */}
-                    <div className="min-w-0">
-                      <h3 className="font-semibold text-base sm:text-lg text-gray-900 dark:text-white">
-                        {cert.title}
-                      </h3>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-base sm:text-lg leading-snug text-[color:var(--text-primary)] break-words">
+                      {cert.title}
+                    </h3>
+                    <p className="text-sm text-[color:var(--text-secondary)] mt-0.5">
+                      {cert.issuer}
+                    </p>
 
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        {cert.issuer}
-                      </p>
-                    </div>
-
-                    {/* Right */}
-                    <div className="flex items-center gap-3 flex-wrap flex-shrink-0 text-xs sm:text-sm text-gray-500 dark:text-gray-500 font-mono">
-                      <span>
-                        {cert.issueDate &&
-                          new Date(cert.issueDate).toLocaleDateString(
-                            'en-US',
-                            {
-                              month: 'short',
-                              year: 'numeric',
-                            }
-                          )}
-
-                        {cert.expiryDate && (
-                          <>
-                            {' '}
-                            &middot; Expires{' '}
-                            {new Date(cert.expiryDate).toLocaleDateString(
-                              'en-US',
-                              {
-                                month: 'short',
-                                year: 'numeric',
-                              }
-                            )}
-                          </>
-                        )}
-                      </span>
+                    <div className="mt-3 flex items-center gap-x-4 gap-y-2 flex-wrap font-mono text-xs text-[color:var(--text-secondary)]">
+                      {cert.issueDate && (
+                        <span>
+                          {formatDate(cert.issueDate)}
+                          {cert.expiryDate && <> &middot; Expires {formatDate(cert.expiryDate)}</>}
+                        </span>
+                      )}
 
                       {cert.verificationUrl && (
                         <a
                           href={cert.verificationUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium transition-colors"
+                          className="inline-flex items-center gap-1 font-semibold text-primary-600 hover:text-[#d97745] transition-colors"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
                           Verify
@@ -116,7 +91,7 @@ const CertificationsSection = () => {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400">
+              <p className="text-sm sm:text-base text-[color:var(--text-secondary)]">
                 No certifications available
               </p>
             </div>
