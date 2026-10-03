@@ -17,18 +17,15 @@ const Card = ({
   };
 
   const variants = {
-    default: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700',
-    elevated: 'bg-white dark:bg-gray-800 shadow-xl border-0',
-    outlined: 'bg-transparent border-2 border-gray-300 dark:border-gray-600',
+    default: 'bg-[color:var(--card-bg)] border border-[color:var(--border-color)] shadow-[0_4px_20px_var(--shadow-color)]',
+    elevated: 'bg-[color:var(--card-bg)] shadow-xl border-0',
+    outlined: 'bg-transparent border border-[color:var(--border-color)]',
     glass: 'glass',
   };
 
   const Component = hover ? motion.div : 'div';
   const hoverProps = hover ? {
-    whileHover: { 
-      y: -5, 
-      boxShadow: '0 20px 40px rgba(0,0,0,0.1)' 
-    },
+    whileHover: { y: -4 },
     transition: { duration: 0.2 }
   } : {};
 
@@ -37,8 +34,9 @@ const Card = ({
       className={`
         ${variants[variant]}
         ${paddings[padding]}
-        rounded-xl
-        transition-all duration-300
+        rounded-2xl
+        transition-[border-color,box-shadow] duration-300
+        ${hover ? 'hover:border-primary-600' : ''}
         ${onClick ? 'cursor-pointer' : ''}
         ${className}
       `}
