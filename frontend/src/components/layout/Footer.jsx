@@ -27,14 +27,12 @@ const Footer = () => {
     { 
       icon: Github, 
       href: 'https://github.com/girishmore2004', 
-      label: 'GitHub',
-      color: 'hover:text-gray-900 dark:hover:text-white'
+      label: 'GitHub'
     },
     { 
       icon: Linkedin, 
-      href: 'www.linkedin.com/in/girish-more-085b9924a', 
-      label: 'LinkedIn',
-      color: 'hover:text-blue-600 dark:hover:text-white'
+      href: 'https://www.linkedin.com/in/girish-more-085b9924a', 
+      label: 'LinkedIn'
     }
   ];
 
@@ -90,51 +88,43 @@ const Footer = () => {
     }
   };
 
+  const linkClass =
+    'group inline-flex items-center gap-2 text-sm text-[color:var(--text-secondary)] hover:text-primary-600 transition-colors';
+
+  const headingClass =
+    'font-mono text-xs uppercase tracking-[0.14em] text-primary-600 mb-5';
+
   return (
-    <footer className="bg-gray-900 text-white relative overflow-hidden">
-      
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-grid-pattern"></div>
-      </div>
-
-      {/* Gradient Overlay */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500 to-transparent"></div>
-
-      <div className="container mx-auto px-4 relative z-10">
+    <footer className="relative border-t border-[color:var(--border-color)] bg-[color:var(--card-bg)] overflow-hidden">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Main Footer Content */}
         <div className="py-12 md:py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
             
             {/* Brand Section */}
-            <div className="lg:col-span-1">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mb-6"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <Link 
+                to="/" 
+                onClick={scrollToTop}
+                className="flex items-center gap-2.5 group mb-4"
               >
-                <Link 
-                  to="/" 
-                  onClick={scrollToTop}
-                  className="flex items-center gap-2 group mb-4"
-                >
-                  <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-purple-600 rounded-lg flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                    <Code className="w-6 h-6 text-white" />
-                  </div>
-                  <span className="text-2xl font-display font-bold">
-                    Portfolio
-                  </span>
-                </Link>
-                <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                  Building exceptional digital experiences with modern technologies. 
-                  Passionate about creating solutions that make a difference.
-                </p>
-              </motion.div>
-
-              
-            </div>
+                <span className="w-9 h-9 rounded-lg bg-primary-600 text-white flex items-center justify-center shadow-[0_4px_10px_rgba(201,108,74,0.25)] group-hover:bg-[#d97745] transition-colors">
+                  <Code className="w-5 h-5" />
+                </span>
+                <span className="text-lg font-bold tracking-tight text-[color:var(--text-primary)]">
+                  Portfolio<span className="text-primary-600">.</span>
+                </span>
+              </Link>
+              <p className="text-[color:var(--text-secondary)] text-sm leading-relaxed">
+                Building exceptional digital experiences with modern technologies. 
+                Passionate about creating solutions that make a difference.
+              </p>
+            </motion.div>
 
             {/* Quick Links */}
             <motion.div
@@ -143,15 +133,12 @@ const Footer = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              <h3 className="text-lg font-bold mb-4 text-white">Quick Links</h3>
-              <ul className="space-y-2">
+              <h3 className={headingClass}>Quick Links</h3>
+              <ul className="space-y-3">
                 {quickLinks.map((link) => (
                   <li key={link.name}>
-                    <button
-                      onClick={() => handleNavClick(link.href)}
-                      className="text-gray-400 hover:text-primary-400 transition-colors text-sm flex items-center gap-2 group"
-                    >
-                      <span className="w-0 group-hover:w-2 h-px bg-primary-400 transition-all duration-300"></span>
+                    <button onClick={() => handleNavClick(link.href)} className={linkClass}>
+                      <span className="w-0 group-hover:w-3 h-px bg-primary-600 transition-all duration-300"></span>
                       {link.name}
                     </button>
                   </li>
@@ -166,15 +153,12 @@ const Footer = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              <h3 className="text-lg font-bold mb-4 text-white">Resources</h3>
-              <ul className="space-y-2">
+              <h3 className={headingClass}>Resources</h3>
+              <ul className="space-y-3">
                 {resourceLinks.map((link) => (
                   <li key={link.name}>
-                    <button
-                      onClick={() => handleNavClick(link.href)}
-                      className="text-gray-400 hover:text-primary-400 transition-colors text-sm flex items-center gap-2 group"
-                    >
-                      <span className="w-0 group-hover:w-2 h-px bg-primary-400 transition-all duration-300"></span>
+                    <button onClick={() => handleNavClick(link.href)} className={linkClass}>
+                      <span className="w-0 group-hover:w-3 h-px bg-primary-600 transition-all duration-300"></span>
                       {link.name}
                     </button>
                   </li>
@@ -189,31 +173,32 @@ const Footer = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
             >
-              <h3 className="text-lg font-bold mb-4 text-white">Stay Updated</h3>
-              <p className="text-gray-400 text-sm mb-4">
+              <h3 className={headingClass}>Stay Updated</h3>
+              <p className="text-[color:var(--text-secondary)] text-sm mb-4">
                 Subscribe to get notified about new projects and updates.
               </p>
               
-              <form onSubmit={handleSubscribe} className="space-y-3">
+              <form onSubmit={handleSubscribe}>
                 <div className="relative">
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all text-sm"
+                    className="input !py-3 !pr-14 text-sm"
                   />
                   <button
                     type="submit"
                     disabled={subscribeLoading}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-primary-600 hover:bg-primary-700 rounded-md transition-colors disabled:opacity-50"
+                    className="absolute right-1.5 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center bg-primary-600 hover:bg-[#d97745] text-white rounded-md transition-colors disabled:opacity-50"
+                    aria-label="Subscribe"
                   >
                     <Send className="w-4 h-4" />
                   </button>
                 </div>
               </form>
 
-              <p className="text-xs text-gray-500 mt-2">
+              <p className="font-mono text-[0.68rem] text-[color:var(--text-secondary)] opacity-80 mt-2.5">
                 No spam, unsubscribe anytime.
               </p>
             </motion.div>
@@ -221,78 +206,65 @@ const Footer = () => {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-gray-800"></div>
+        <div className="border-t border-[color:var(--border-color)]"></div>
 
         {/* Bottom Section */}
         <div className="py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-5">
             
             {/* Social Links */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="flex items-center gap-4"
-            >
-              {socialLinks.map(({ icon: Icon, href, label, color }) => (
+            <div className="flex items-center gap-3">
+              {socialLinks.map(({ icon: Icon, href, label }) => (
                 <motion.a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`p-3 bg-gray-800 rounded-lg text-gray-400 ${color} transition-all hover:shadow-lg`}
+                  className="w-10 h-10 flex items-center justify-center rounded-lg border border-[color:var(--border-color)] text-[color:var(--text-secondary)] hover:text-primary-600 hover:border-primary-600 transition-colors"
                   aria-label={label}
                 >
-                  <Icon className="w-5 h-5" />
+                  <Icon className="w-[18px] h-[18px]" />
                 </motion.a>
               ))}
-            </motion.div>
+            </div>
 
             {/* Copyright */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="text-gray-400 text-sm text-center md:text-left"
-            >
-              <p className="flex items-center justify-center md:justify-start gap-2 flex-wrap">
+            <div className="text-[color:var(--text-secondary)] text-sm text-center">
+              <p className="flex items-center justify-center gap-2 flex-wrap">
                 <span>© {new Date().getFullYear()} Portfolio CMS.</span>
                 <span className="hidden md:inline">Built with</span>
-                <Heart className="w-4 h-4 text-red-500 animate-pulse inline md:inline" />
+                <Heart className="w-4 h-4 text-primary-600 animate-pulse inline" />
                 <span className="hidden md:inline">using React & Node.js</span>
               </p>
-            </motion.div>
+            </div>
 
             {/* Back to Top */}
             <motion.button
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.1, y: -2 }}
+              whileHover={{ y: -2 }}
               whileTap={{ scale: 0.95 }}
               onClick={scrollToTop}
-              className="p-3 bg-gray-800 hover:bg-primary-600 rounded-lg text-gray-400 hover:text-white transition-all group"
+              className="w-10 h-10 flex items-center justify-center rounded-lg border border-[color:var(--border-color)] text-[color:var(--text-secondary)] hover:bg-primary-600 hover:border-primary-600 hover:text-white transition-colors group"
               aria-label="Back to top"
             >
-              <ArrowUp className="w-5 h-5 group-hover:animate-bounce" />
+              <ArrowUp className="w-[18px] h-[18px] group-hover:animate-bounce" />
             </motion.button>
           </div>
         </div>
 
         {/* Extra Links */}
-        <div className="border-t border-gray-800 py-4">
-          <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-gray-500">
-            <Link to="/privacy" className="hover:text-primary-400 transition-colors">
+        <div className="border-t border-[color:var(--border-color)] py-4">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-mono text-xs text-[color:var(--text-secondary)]">
+            <Link to="/privacy" className="hover:text-primary-600 transition-colors">
               Privacy Policy
             </Link>
             <span>•</span>
-            <Link to="/terms" className="hover:text-primary-400 transition-colors">
+            <Link to="/terms" className="hover:text-primary-600 transition-colors">
               Terms of Service
             </Link>
             <span>•</span>
-            <Link to="/sitemap" className="hover:text-primary-400 transition-colors">
+            <Link to="/sitemap" className="hover:text-primary-600 transition-colors">
               Sitemap
             </Link>
             <span>•</span>
@@ -300,17 +272,13 @@ const Footer = () => {
               href="https://github.com/yourusername/portfolio-cms" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="hover:text-primary-400 transition-colors flex items-center gap-1"
+              className="hover:text-primary-600 transition-colors flex items-center gap-1"
             >
               View Source <ExternalLink className="w-3 h-3" />
             </a>
           </div>
         </div>
       </div>
-
-      {/* Decorative Elements */}
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary-600/5 rounded-full blur-3xl"></div>
-      <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/5 rounded-full blur-3xl"></div>
     </footer>
   );
 };
