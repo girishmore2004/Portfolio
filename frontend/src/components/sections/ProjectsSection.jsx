@@ -27,7 +27,7 @@ const ProjectsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
         >
-          <span className="section-eyebrow">// 03 — Projects</span>
+          {/* <span className="section-eyebrow">// 03 — Projects</span> */}
           <h2 className="section-title">Featured Projects</h2>
           <p className="section-subtitle">
             A selection of things I've designed, built and shipped
