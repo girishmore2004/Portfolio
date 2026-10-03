@@ -53,7 +53,7 @@ const AboutSection = () => {
           transition={{ duration: 0.6 }}
           variants={fadeIn}
         >
-          <span className="section-eyebrow">// 01 — About</span>
+          {/* <span className="section-eyebrow">// 01 — About</span> */}
           <h2 className="section-title">{content.title || 'About Me'}</h2>
 
           <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 mt-12">
