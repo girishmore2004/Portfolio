@@ -58,7 +58,7 @@ const ContactSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
         >
-          <span className="section-eyebrow">// 06 — Contact</span>
+          {/* <span className="section-eyebrow">// 06 — Contact</span> */}
           <h2 className="section-title">Get In Touch</h2>
 
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 mt-12">
