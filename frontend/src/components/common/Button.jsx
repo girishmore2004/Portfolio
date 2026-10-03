@@ -14,23 +14,23 @@ const Button = ({
   ...props 
 }) => {
   const variants = {
-    primary: 'bg-primary-600 text-white hover:bg-primary-700 hover:shadow-lg border-primary-600',
-    secondary: 'bg-transparent border-2 border-primary-600 text-primary-600 dark:text-primary-400 hover:bg-primary-600 hover:text-white dark:hover:text-white',
-    ghost: 'bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300',
-    danger: 'bg-red-600 text-white hover:bg-red-700 hover:shadow-lg',
-    success: 'bg-green-600 text-white hover:bg-green-700 hover:shadow-lg',
+    primary: 'bg-primary-600 text-white shadow-[0_4px_10px_rgba(201,108,74,0.18)] hover:bg-[#d97745] hover:shadow-[0_6px_16px_rgba(201,108,74,0.3)] border border-primary-600',
+    secondary: 'bg-transparent border border-[color:var(--border-color)] text-[color:var(--text-primary)] hover:border-primary-600 hover:bg-primary-600/5',
+    ghost: 'bg-transparent border border-transparent hover:bg-black/5 dark:hover:bg-white/10 text-[color:var(--text-primary)]',
+    danger: 'bg-red-600 text-white hover:bg-red-700 hover:shadow-lg border border-red-600',
+    success: 'bg-green-600 text-white hover:bg-green-700 hover:shadow-lg border border-green-600',
   };
 
   const sizes = {
     sm: 'px-4 py-2 text-sm',
-    md: 'px-6 py-3 text-base',
-    lg: 'px-8 py-4 text-lg',
+    md: 'px-6 py-3 text-[0.95rem]',
+    lg: 'px-7 py-3.5 text-base',
   };
 
   return (
     <motion.button
-      whileHover={disabled || loading ? {} : { scale: 1.02 }}
-      whileTap={disabled || loading ? {} : { scale: 0.98 }}
+      whileHover={disabled || loading ? {} : { y: -2 }}
+      whileTap={disabled || loading ? {} : { y: 0, scale: 0.98 }}
       className={`
         btn 
         ${variants[variant]} 
@@ -39,8 +39,8 @@ const Button = ({
         ${disabled || loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
         ${className}
         inline-flex items-center justify-center gap-2 font-medium 
-        transition-all duration-300 rounded-lg
-        focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
+        transition-all duration-200 rounded-lg
+        focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-color)]
       `}
       onClick={onClick}
       type={type}
@@ -57,7 +57,7 @@ const Button = ({
         </>
       ) : (
         <>
-          {Icon && <Icon className="w-5 h-5" />}
+          {Icon && <Icon className="w-[18px] h-[18px] flex-shrink-0" />}
           {children}
         </>
       )}
