@@ -11,7 +11,7 @@ function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+        <div className="min-h-screen bg-[color:var(--bg-color)] text-[color:var(--text-primary)] transition-colors duration-300">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
@@ -33,6 +33,7 @@ function App() {
                 background: 'var(--card)',
                 color: 'var(--foreground)',
                 border: '1px solid var(--border)',
+                borderRadius: '10px',
               },
               success: {
                 iconTheme: {
