@@ -48,7 +48,7 @@ const SkillsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
         >
-          <span className="section-eyebrow">// 02 — Skills</span>
+          {/* <span className="section-eyebrow">// 02 — Skills</span> */}
           <h2 className="section-title">Skills &amp; Technologies</h2>
           <p className="section-subtitle">
             Technologies and tools I use to bring ideas to life
