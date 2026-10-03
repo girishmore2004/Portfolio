@@ -20,8 +20,9 @@ const Home = () => {
   return (
     <div className="relative">
       <Header />
-      
-      <main className="overflow-hidden">
+
+      {/* Grid-paper background wraps every section so they read as one continuous page */}
+      <main className="main-container overflow-x-hidden">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoaded ? 1 : 0 }}
