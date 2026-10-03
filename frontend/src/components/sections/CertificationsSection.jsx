@@ -36,7 +36,7 @@ const CertificationsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
         >
-          <span className="section-eyebrow">// 04 — Certifications</span>
+          {/* <span className="section-eyebrow">// 04 — Certifications</span> */}
           <h2 className="section-title">Certifications &amp; Achievements</h2>
           <p className="section-subtitle">
             Credentials and milestones that back up the work
