@@ -28,7 +28,7 @@ const Header = () => {
   // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 20);
 
       // Update active section based on scroll position
       const sections = navLinks.map(link => link.href.substring(1));
@@ -77,137 +77,124 @@ const Header = () => {
   return (
     <>
       <motion.header
-        initial={{ y: -100 }}
+        initial={{ y: -80 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled 
-            ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-lg border-b border-gray-200 dark:border-gray-800' 
-            : 'bg-transparent'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
+          scrolled
+            ? 'header-scrolled'
+            : 'bg-transparent border-transparent'
         }`}
       >
-        <nav className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            
-            {/* Logo */}
-            <Link 
-              to="/" 
-              className="flex items-center gap-2 group"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            >
-              <motion.div
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.5 }}
-                className="w-10 h-10 bg-gradient-to-br from-primary-600 to-purple-600 rounded-lg flex items-center justify-center shadow-lg"
-              >
-                <Code className="w-6 h-6 text-white" />
-              </motion.div>
-              <span className="text-2xl font-display font-bold text-gradient group-hover:scale-105 transition-transform">
-                Portfolio
-              </span>
-            </Link>
+        <nav className="max-w-[1200px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+          {/* Logo */}
+          <Link
+            to="/"
+            className="flex items-center gap-2.5 group min-w-0"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
+            <span className="w-9 h-9 flex-shrink-0 rounded-lg bg-primary-600 text-white flex items-center justify-center shadow-[0_4px_10px_rgba(201,108,74,0.25)] group-hover:bg-[#d97745] transition-colors">
+              <Code className="w-5 h-5" />
+            </span>
+            <span className="font-bold text-lg tracking-tight text-[color:var(--text-primary)] truncate">
+              Portfolio<span className="text-primary-600">.</span>
+            </span>
+          </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-1">
-              {navLinks.map((link) => {
-                const Icon = link.icon;
-                const isActive = activeSection === link.href.substring(1);
-                
-                return (
-                  <motion.button
-                    key={link.name}
-                    onClick={() => handleNavClick(link.href)}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`
-                      flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300
-                      ${isActive 
-                        ? 'bg-primary-600 text-white shadow-lg' 
-                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-                      }
-                    `}
-                  >
-                    <Icon className="w-4 h-4" />
-                    <span className="text-sm">{link.name}</span>
-                  </motion.button>
-                );
-              })}
-            </div>
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-0.5">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.substring(1);
 
-            {/* Right Side Actions */}
-            <div className="flex items-center gap-3">
-              
-              {/* Theme Toggle */}
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={toggleTheme}
-                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                aria-label="Toggle theme"
-              >
-                <AnimatePresence mode="wait">
-                  {theme === 'light' ? (
-                    <motion.div
-                      key="moon"
-                      initial={{ rotate: -90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: 90, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <Moon className="w-5 h-5 text-gray-700" />
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="sun"
-                      initial={{ rotate: 90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: -90, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <Sun className="w-5 h-5 text-yellow-400" />
-                    </motion.div>
+              return (
+                <button
+                  key={link.name}
+                  onClick={() => handleNavClick(link.href)}
+                  className={`relative px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                    isActive
+                      ? 'text-primary-600'
+                      : 'text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]'
+                  }`}
+                >
+                  {link.name}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-underline"
+                      className="absolute left-3 right-3 -bottom-0.5 h-0.5 rounded-full bg-primary-600"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
                   )}
-                </AnimatePresence>
-              </motion.button>
+                </button>
+              );
+            })}
+          </div>
 
-              {/* Admin Login/Dashboard */}
-              {isAuthenticated ? (
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => navigate('/admin')}
-                  className="hidden md:flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium"
-                >
-                  <User className="w-4 h-4" />
-                  <span>Dashboard</span>
-                </motion.button>
-              ) : (
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => navigate('/login')}
-                  className="hidden md:flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors font-medium"
-                >
-                  <LogIn className="w-4 h-4" />
-                  <span>Login</span>
-                </motion.button>
-              )}
-
-              {/* Mobile Menu Button */}
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                aria-label="Toggle menu"
-              >
-                {mobileMenuOpen ? (
-                  <X className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+          {/* Right Side Actions */}
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+            {/* Theme Toggle */}
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={toggleTheme}
+              className="w-9 h-9 flex items-center justify-center rounded-lg border border-[color:var(--border-color)] bg-[color:var(--card-bg)] hover:border-primary-600 transition-colors"
+              aria-label="Toggle theme"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {theme === 'light' ? (
+                  <motion.div
+                    key="moon"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Moon className="w-[18px] h-[18px] text-[color:var(--text-primary)]" />
+                  </motion.div>
                 ) : (
-                  <Menu className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+                  <motion.div
+                    key="sun"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Sun className="w-[18px] h-[18px] text-accent-400" />
+                  </motion.div>
                 )}
-              </motion.button>
-            </div>
+              </AnimatePresence>
+            </motion.button>
+
+            {/* Admin Login/Dashboard */}
+            {isAuthenticated ? (
+              <button
+                onClick={() => navigate('/admin')}
+                className="hidden md:inline-flex btn-primary !py-2 !px-4 !text-sm"
+              >
+                <User className="w-4 h-4" />
+                <span>Dashboard</span>
+              </button>
+            ) : (
+              <button
+                onClick={() => navigate('/login')}
+                className="hidden md:inline-flex btn-secondary !py-2 !px-4 !text-sm"
+              >
+                <LogIn className="w-4 h-4" />
+                <span>Login</span>
+              </button>
+            )}
+
+            {/* Mobile Menu Button */}
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-[color:var(--border-color)] bg-[color:var(--card-bg)] hover:border-primary-600 transition-colors"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? (
+                <X className="w-5 h-5 text-[color:var(--text-primary)]" />
+              ) : (
+                <Menu className="w-5 h-5 text-[color:var(--text-primary)]" />
+              )}
+            </motion.button>
           </div>
         </nav>
       </motion.header>
@@ -222,7 +209,7 @@ const Header = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] lg:hidden"
             />
 
             {/* Menu Panel */}
@@ -230,45 +217,42 @@ const Header = () => {
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 w-80 bg-white dark:bg-gray-900 shadow-2xl z-50 lg:hidden overflow-y-auto"
+              transition={{ type: 'spring', damping: 28, stiffness: 240 }}
+              className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-[color:var(--bg-color)] border-l border-[color:var(--border-color)] shadow-2xl z-[70] lg:hidden overflow-y-auto"
             >
               <div className="p-6">
                 {/* Close Button */}
                 <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-2xl font-display font-bold text-gradient">
-                    Menu
-                  </h2>
+                  <span className="section-eyebrow !mb-0">// Menu</span>
                   <button
                     onClick={() => setMobileMenuOpen(false)}
-                    className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    className="w-9 h-9 flex items-center justify-center rounded-lg border border-[color:var(--border-color)] hover:border-primary-600 transition-colors"
+                    aria-label="Close menu"
                   >
-                    <X className="w-6 h-6" />
+                    <X className="w-5 h-5" />
                   </button>
                 </div>
 
                 {/* Navigation Links */}
-                <nav className="space-y-2">
+                <nav className="space-y-1">
                   {navLinks.map((link, index) => {
                     const Icon = link.icon;
                     const isActive = activeSection === link.href.substring(1);
-                    
+
                     return (
                       <motion.button
                         key={link.name}
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.05 }}
+                        transition={{ delay: index * 0.04 }}
                         onClick={() => handleNavClick(link.href)}
-                        className={`
-                          w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all
-                          ${isActive 
-                            ? 'bg-primary-600 text-white' 
-                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-                          }
-                        `}
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium text-left transition-colors border ${
+                          isActive
+                            ? 'bg-primary-600/10 border-primary-600/30 text-primary-600'
+                            : 'border-transparent text-[color:var(--text-primary)] hover:bg-primary-600/5'
+                        }`}
                       >
-                        <Icon className="w-5 h-5" />
+                        <Icon className="w-[18px] h-[18px]" />
                         <span>{link.name}</span>
                       </motion.button>
                     );
@@ -276,7 +260,7 @@ const Header = () => {
                 </nav>
 
                 {/* Divider */}
-                <div className="my-6 border-t border-gray-200 dark:border-gray-800"></div>
+                <div className="my-6 border-t border-[color:var(--border-color)]"></div>
 
                 {/* Admin Section */}
                 {isAuthenticated ? (
@@ -287,9 +271,9 @@ const Header = () => {
                       navigate('/admin');
                       setMobileMenuOpen(false);
                     }}
-                    className="w-full flex items-center gap-3 px-4 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium"
+                    className="btn-primary w-full"
                   >
-                    <User className="w-5 h-5" />
+                    <User className="w-[18px] h-[18px]" />
                     <span>Admin Dashboard</span>
                   </motion.button>
                 ) : (
@@ -300,9 +284,9 @@ const Header = () => {
                       navigate('/login');
                       setMobileMenuOpen(false);
                     }}
-                    className="w-full flex items-center gap-3 px-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors font-medium"
+                    className="btn-secondary w-full"
                   >
-                    <LogIn className="w-5 h-5" />
+                    <LogIn className="w-[18px] h-[18px]" />
                     <span>Admin Login</span>
                   </motion.button>
                 )}
@@ -313,15 +297,15 @@ const Header = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 }}
-                    className="mt-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg"
+                    className="mt-6 p-4 rounded-xl border border-[color:var(--border-color)] bg-[color:var(--card-bg)]"
                   >
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+                    <p className="text-xs font-mono uppercase tracking-wider text-[color:var(--text-secondary)] mb-1">
                       Logged in as
                     </p>
-                    <p className="font-medium text-gray-900 dark:text-white">
+                    <p className="font-medium text-[color:var(--text-primary)]">
                       {user.name}
                     </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-500">
+                    <p className="text-xs text-[color:var(--text-secondary)] break-all">
                       {user.email}
                     </p>
                   </motion.div>
